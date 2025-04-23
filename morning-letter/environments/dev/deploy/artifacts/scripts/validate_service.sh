@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e # error handling
 
-# Health check endpoint URL
 HEALTH_CHECK_URL="http://localhost:80/health"
 MAX_RETRIES=5
 RETRY_INTERVAL=5

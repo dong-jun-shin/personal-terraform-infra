@@ -2,13 +2,13 @@
 set -e # error handling
 
 AWS_REGION="ap-northeast-2"
-NODE_ENV="development"
 CONTAINER_NAME="morning-letter-be"
 HOST_ENV_FILE_PATH="/home/ec2-user/morning-letter/.env.${NODE_ENV}"
+NODE_ENV="development"
 
 DOCKER_IMAGE_URI="ghcr.io/dong-jun-shin/morning-letter-be:latest"
 GITHUB_PAT_USERNAME="dong-jun-shin"
-S3_GITHUB_PAT_URI="s3://infra-morning-letter-files/morning-letter-infra/github_token_docker_registry.env"
+S3_GITHUB_PAT_URI="s3://infra-morning-letter-files/morning-letter-infra/deployments/github_token_docker_registry.env"
 HOST_GITHUB_PAT_TMP_FILE="/tmp/github_token_docker_registry"
 
 echo "Set GitHub PAT from S3..."

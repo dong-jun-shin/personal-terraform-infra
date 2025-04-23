@@ -4,13 +4,12 @@ set -e # error handling
 ENVIRONMENT="dev"
 APP_NAME="morning-letter"
 VERSION=${VERSION:-${GITHUB_SHA:-latest}}
-S3_BUCKET="infra-morning-letter-files"
-AWS_REGION="ap-northeast-2"
-
-ARTIFACT_NAME="${APP_NAME}-${ENVIRONMENT}-deploy-artifacts-${VERSION}.tgz"
-S3_KEY="morning-letter-infra/deployments/${ARTIFACT_NAME}"
-
 ARTIFACT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/artifacts"
+ARTIFACT_NAME="${APP_NAME}-${ENVIRONMENT}-deploy-artifacts-${VERSION}.tgz"
+
+S3_BUCKET="infra-morning-letter-files"
+S3_KEY="morning-letter-infra/deployments/${ARTIFACT_NAME}"
+AWS_REGION="ap-northeast-2"
 
 echo "Starting tar creation for ${APP_NAME} (${ENVIRONMENT}) ${ARTIFACT_NAME}, version ${VERSION}..."
 cd "${ARTIFACT_DIR}"

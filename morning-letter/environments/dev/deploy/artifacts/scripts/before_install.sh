@@ -3,8 +3,8 @@ set -e # error handling
 
 AWS_REGION="ap-northeast-2"
 CONTAINER_NAME="morning-letter-be"
-S3_ENV_FILE_URI="s3://infra-morning-letter-files/morning-letter-env/.env.development"
 HOST_ENV_FILE_PATH="/home/ec2-user/morning-letter/.env.development"
+S3_ENV_FILE_URI="s3://infra-morning-letter-files/morning-letter-env/.env.development"
 
 echo "Removing exited or created container..."
 EXITED_CONTAINER_ID=$(docker ps -aq -f status=exited -f name=^/${CONTAINER_NAME}$)

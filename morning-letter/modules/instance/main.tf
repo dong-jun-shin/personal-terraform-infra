@@ -12,7 +12,7 @@ resource "aws_instance" "morning_letter_be_dev_ec2" {
     {
       Name            = "${var.project_name}-${var.environment}-ec2"
       Role            = "api"
-      DeploymentGroup = "morning-letter-api" # CodeDeploy Group Target
+      DeploymentGroup = "${var.environment}-morning-letter-api" # CodeDeploy Group Target
     }
   )
 

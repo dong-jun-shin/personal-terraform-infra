@@ -42,12 +42,12 @@ inputs = {
       cd /home/ec2-user
       wget https://aws-codedeploy-ap-northeast-2.s3.amazonaws.com/latest/install
       chmod +x ./install
-      ./install auto --region ap-northeast-2 
+      ./install auto
       systemctl start codedeploy-agent
       systemctl enable codedeploy-agent
 
       # Install Docker
-      amazon-linux-extras install docker -y
+      dnf install docker -y
       systemctl start docker
       systemctl enable docker
       usermod -a -G docker ec2-user
@@ -55,10 +55,6 @@ inputs = {
       # Create application directory
       mkdir -p /opt/morning-letter/logs
       chown -R ec2-user:ec2-user /opt/morning-letter
-      
-      # Set permissions for CodeDeploy Agent log directory
-      mkdir -p /var/log/aws/codedeploy-agent
-      chown -R root:root /var/log/aws/codedeploy-agent
       
       # Check CodeDeploy Agent status
       systemctl status codedeploy-agent

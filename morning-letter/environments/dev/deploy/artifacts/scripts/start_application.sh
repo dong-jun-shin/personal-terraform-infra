@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e # error handling
 
+NODE_ENV="development"
 AWS_REGION="ap-northeast-2"
 CONTAINER_NAME="morning-letter-be"
 HOST_ENV_FILE_PATH="/home/ec2-user/morning-letter/.env.${NODE_ENV}"
-NODE_ENV="development"
 
 DOCKER_IMAGE_URI="ghcr.io/dong-jun-shin/morning-letter-be:latest"
 GITHUB_PAT_USERNAME="dong-jun-shin"
@@ -44,7 +44,7 @@ else
   exit 1
 fi
 
-echo "Start container ${CONTAINER_NAME} from image ${DOCKER_IMAGE_URI}..."
+echo "Start container ${CONTAINER_NAME}(${NODE_ENV}) from image ${DOCKER_IMAGE_URI}..."
 docker run -d \
   -p 80:55001 \
   --restart on-failure:5 \

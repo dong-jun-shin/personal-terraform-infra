@@ -27,7 +27,7 @@ GITHUB_TOKEN=$(cat "${HOST_GITHUB_PAT_TMP_FILE}")
 rm -f "${HOST_GITHUB_PAT_TMP_FILE}"
 
 echo "Login GitHub Packages Docker Registry (ghcr.io)..."
-if echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "${GITHUB_USERNAME}" --password-stdin; then
+if echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "${GITHUB_PAT_USERNAME}" --password-stdin; then
   echo "Docker login successful."
 else
   echo "ERROR: Docker login failed." >&2
@@ -46,7 +46,7 @@ fi
 
 echo "Start container ${CONTAINER_NAME} from image ${DOCKER_IMAGE_URI}..."
 docker run -d \
-  -p 80:3000 \
+  -p 80:55001 \
   --restart on-failure:5 \
   --name "${CONTAINER_NAME}" \
   -v "${HOST_ENV_FILE_PATH}:/opt/app/.env.${NODE_ENV}" \

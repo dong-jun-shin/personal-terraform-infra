@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e # error handling
 
-HEALTH_CHECK_URL="http://localhost:55001/health"
+HEALTH_CHECK_URL="http://localhost:80/health"
 MAX_RETRIES=5
 RETRY_INTERVAL=5
 

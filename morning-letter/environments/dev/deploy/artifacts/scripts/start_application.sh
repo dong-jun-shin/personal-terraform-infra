@@ -50,8 +50,9 @@ docker run -d \
   --restart on-failure:5 \
   --name "${CONTAINER_NAME}" \
   -v "${HOST_ENV_FILE_PATH}:/opt/app/.env.${NODE_ENV}" \
-  -e NODE_ENV="${NODE_ENV}" \
+  -e "NODE_ENV=${NODE_ENV}" \
   "${DOCKER_IMAGE_URI}"
+
 if [ $? -ne 0 ]; then
     echo "ERROR: Failed to start Docker container." >&2
     exit 1

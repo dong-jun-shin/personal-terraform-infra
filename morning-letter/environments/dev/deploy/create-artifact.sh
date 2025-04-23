@@ -21,13 +21,13 @@ fi
 
 echo "Uploading artifact to s3://${S3_BUCKET}/${S3_KEY}..."
 aws s3 cp "${ARTIFACT_NAME}" "s3://${S3_BUCKET}/${S3_KEY}" --region "${AWS_REGION}"
+
+echo "Removing local artifact file: ${ARTIFACT_NAME}"
+rm "${ARTIFACT_NAME}"
 if [ $? -ne 0 ]; then
   echo "ERROR: Failed to upload artifact to S3." >&2
   exit 1
 fi
-
-echo "Removing local artifact file: ${ARTIFACT_NAME}"
-rm "${ARTIFACT_NAME}"
 
 echo "Deployment artifact process finished successfully for version ${VERSION}."
 echo "Artifact S3 Path: s3://${S3_BUCKET}/${S3_KEY}"

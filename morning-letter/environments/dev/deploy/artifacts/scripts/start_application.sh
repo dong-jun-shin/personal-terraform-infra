@@ -65,6 +65,7 @@ docker run -d \
   --name "${CONTAINER_NAME}" \
   -v "${HOST_ENV_FILE_PATH}:/opt/app/.env.${NODE_ENV}" \
   -e "NODE_ENV=${NODE_ENV}" \
+  -e "WORKER_ID=${WORKER_ID}" \
   "${DOCKER_IMAGE_URI}"
 
 if [ $? -ne 0 ]; then

@@ -199,6 +199,14 @@ resource "aws_security_group" "app" {
   }
   
   egress {
+    from_port   = 465
+    to_port     = 465
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow SMTP SSL outbound traffic for Gmail"
+  }
+  
+  egress {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"

@@ -1,3 +1,20 @@
+# SSH Key Pair
+resource "tls_private_key" "morning_letter_dev_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "morning_letter_dev_keypair" {
+  key_name   = var.keypair_name
+  public_key = tls_private_key.morning_letter_dev_key.public_key_openssh
+} 
+
+resource "local_file" "user_local" {
+  filename        = "${pathexpand("~")}/.ssh/${var.keypair_name}.pem"
+  content         = tls_private_key.morning_letter_dev_key.private_key_pem
+  file_permission = "0600"
+}
+
 # S3 bucket for infra file management
 resource "aws_s3_bucket" "infra_files" {
   bucket = var.infra_files_bucket_name
@@ -99,20 +116,3 @@ resource "aws_dynamodb_table" "tfstate_lock" {
     var.tags
   )
 } 
-
-# SSH Key Pair
-resource "tls_private_key" "morning_letter_dev_key" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-resource "aws_key_pair" "morning_letter_dev_keypair" {
-  key_name   = var.keypair_name
-  public_key = tls_private_key.morning_letter_dev_key.public_key_openssh
-} 
-
-resource "local_file" "user_local" {
-  filename        = "${pathexpand("~")}/.ssh/${var.keypair_name}.pem"
-  content         = tls_private_key.morning_letter_dev_key.private_key_pem
-  file_permission = "0600"
-}

@@ -11,6 +11,20 @@ GITHUB_PAT_USERNAME="dong-jun-shin"
 S3_GITHUB_PAT_URI="s3://infra-morning-letter-files/morning-letter-infra/deployments/github_token_docker_registry.env"
 HOST_GITHUB_PAT_TMP_FILE="/tmp/github_token_docker_registry"
 
+echo "Set WORKER_ID from EC2 Instance ID..."
+TOKEN=$(curl -X PUT -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" http://169.254.169.254/latest/api/token)
+INSTANCE_ID=$(curl -s -H "X-aws-ec2-metadata-token: ${TOKEN}" http://169.254.169.254/latest/meta-data/instance-id)
+if [ -z "${INSTANCE_ID}" ]; then
+  echo "ERROR: Could not retrieve instance ID from EC2 metadata service. Cannot determine WORKER_ID." >&2
+  exit 1
+fi
+HASH_VALUE=$(echo -n "${INSTANCE_ID}" | sha1sum | awk '{print $1}')
+WORKER_ID=$(printf "%d\n" "0x${HASH_VALUE:0:10}" 2>/dev/null | awk '{print $1 % 1024}')
+if ! [[ "${WORKER_ID}" =~ ^[0-9]+$ ]]; then
+    echo "ERROR: Failed to calculate a valid WORKER_ID from Instance ID hash." >&2
+    exit 1
+fi
+
 echo "Set GitHub PAT from S3..."
 aws s3 cp "${S3_GITHUB_PAT_URI}" "${HOST_GITHUB_PAT_TMP_FILE}" --region "${AWS_REGION}"
 if [ $? -ne 0 ]; then

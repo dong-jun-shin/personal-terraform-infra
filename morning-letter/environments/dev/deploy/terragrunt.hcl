@@ -18,5 +18,5 @@ inputs = {
   codedeploy_service_role_arn = dependency.role.outputs.codedeploy_service_role_arn
   
   ec2_tag_key   = "DeploymentGroup"
-  ec2_tag_value = "${include.dev.outputs.environment}-morning-letter-api"
+  ec2_tag_value = "dev-morning-letter-api"
 } 

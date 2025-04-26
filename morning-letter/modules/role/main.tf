@@ -69,7 +69,8 @@ resource "aws_iam_role_policy" "ec2_codedeploy_permissions" {
         Action = "s3:GetObject"
         Resource = [
           var.env_object_arn,
-          var.github_pat_s3_object_arn
+          var.github_pat_s3_object_arn,
+          var.artifact_s3_object_arn
         ]
       }
     ]

@@ -22,3 +22,8 @@ variable "github_pat_s3_object_arn" {
   description = "GitHub PAT S3 Object ARN"
   type        = string
 }
+
+variable "artifact_s3_object_arn" {
+  description = "Artifact S3 Object ARN"
+  type        = string
+}

@@ -73,6 +73,7 @@ resource "aws_lb_listener" "http" {
   #   }
   # }
 }
+
 # TODO: 추후 HTTPS 설정 시 ACM 인증서 발급 후 활성화
 # resource "aws_lb_listener" "https" {
 #   load_balancer_arn = aws_lb.main.arn

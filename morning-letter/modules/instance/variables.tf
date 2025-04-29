@@ -60,3 +60,13 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "asg_app_config" {
+  description = "Configuration for the Auto Scaling Group App"
+  type = object({
+    min_size         = number
+    max_size         = number
+    desired_capacity = number
+    target_group_arn = string
+  })
+}

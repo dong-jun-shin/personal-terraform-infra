@@ -1,19 +1,19 @@
-output "instance_id" {
-  description = "Created EC2 instance ID"
-  value       = aws_instance.morning_letter_be_dev_ec2.id
+output "launch_template_id" {
+  description = "The ID of the launch template"
+  value       = aws_launch_template.this.id
 }
 
-output "instance_public_ip" {
-  description = "Public IP of the EC2 instance"
-  value       = aws_instance.morning_letter_be_dev_ec2.public_ip
+output "launch_template_latest_version" {
+  description = "The latest version number of the launch template"
+  value       = aws_launch_template.this.latest_version
 }
 
-output "instance_private_ip" {
-  description = "Private IP of the EC2 instance"
-  value       = aws_instance.morning_letter_be_dev_ec2.private_ip
+output "asg_app_name" {
+  description = "The name of the Auto Scaling Group App"
+  value       = aws_autoscaling_group.this.name
 }
 
-output "instance_arn" {
-  description = "ARN of the EC2 instance"
-  value       = aws_instance.morning_letter_be_dev_ec2.arn
+output "asg_app_arn" {
+  description = "The ARN of the Auto Scaling Group App"
+  value       = aws_autoscaling_group.this.arn
 }

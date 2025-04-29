@@ -18,15 +18,24 @@ variable "codedeploy_service_role_arn" {
   type        = string
 }
 
-variable "ec2_tag_key" {
-  description = "CodeDeploy Deployment Group Target EC2 Instance Tag Key"
-  type        = string
-  default     = "DeploymentGroup"
+variable "asg_app_name" {
+  description = "ASG App Name"
+  type = string
 }
 
-variable "ec2_tag_value" {
-  description = "CodeDeploy Deployment Group Target EC2 Instance Tag Value"
-  type        = string
+variable "init_asg_app" {
+  description = "initial ASG App"
+  type        = bool
+}
+
+variable "lb_listener_arns" {
+  description = "List of Load Balancer listener ARNs to register with the deployment group"
+  type        = list(string)
+}
+
+variable "lb_target_group_name" {
+  description = "Object containing the name of the target group"
+  type = string
 }
 
 variable "tags" {

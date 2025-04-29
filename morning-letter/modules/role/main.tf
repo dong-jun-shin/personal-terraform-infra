@@ -19,6 +19,26 @@ resource "aws_iam_role" "codedeploy_service_role" {
   }
 }
 
+resource "aws_iam_role_policy" "codedeploy_service_permissions" {
+  name       = "${var.project_name}-${var.environment}-codedeploy-service-permissions"
+  role       = aws_iam_role.codedeploy_service_role.name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ec2:RunInstances",
+          "ec2:CreateTags",
+          "iam:PassRole"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
 resource "aws_iam_role_policy_attachment" "codedeploy_service_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"
   role       = aws_iam_role.codedeploy_service_role.name

@@ -3,12 +3,22 @@ output "codedeploy_app_name" {
   value       = aws_codedeploy_app.this.name
 }
 
-output "codedeploy_deployment_group_name" {
-  description = "CodeDeploy Deployment Group Name"
-  value       = aws_codedeploy_deployment_group.this.deployment_group_name
+output "codedeploy_init_deployment_group_name" {
+  description = "initial deployment group name"
+  value       = try(aws_codedeploy_deployment_group.init[0].deployment_group_name, null)
 }
 
-output "codedeploy_deployment_group_id" {
-  description = "CodeDeploy Deployment Group ID"
-  value       = aws_codedeploy_deployment_group.this.id
-} 
+output "codedeploy_init_deployment_group_id" {
+  description = "initial deployment group id"
+  value       = try(aws_codedeploy_deployment_group.init[0].id, null)
+}
+
+output "codedeploy_blue_green_deployment_group_name" {
+  description = "blue/green deployment group name"
+  value       = try(aws_codedeploy_deployment_group.blue_green[0].deployment_group_name, null)
+}
+
+output "codedeploy_blue_green_deployment_group_id" {
+  description = "blue/green deployment group id"
+  value       = try(aws_codedeploy_deployment_group.blue_green[0].id, null)
+}

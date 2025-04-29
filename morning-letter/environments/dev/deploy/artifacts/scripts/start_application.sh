@@ -60,7 +60,7 @@ fi
 
 echo "Start container ${CONTAINER_NAME}(${NODE_ENV}) from image ${DOCKER_IMAGE_URI}..."
 docker run -d \
-  -p 80:55001 \
+  -p 80:80 \
   --restart on-failure:5 \
   --name "${CONTAINER_NAME}" \
   -v "${HOST_ENV_FILE_PATH}:/opt/app/.env.${NODE_ENV}" \

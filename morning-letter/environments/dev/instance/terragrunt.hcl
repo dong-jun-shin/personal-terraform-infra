@@ -24,7 +24,6 @@ terraform {
 
 inputs = {
   vpc_id                      = dependency.vpc.outputs.vpc_id
-  public_subnet_ids           = dependency.vpc.outputs.public_subnet_ids
   private_subnet_ids          = dependency.vpc.outputs.private_subnet_ids
   security_group_ids          = [dependency.vpc.outputs.app_security_group_id] 
   iam_instance_profile_name = dependency.role.outputs.ec2_instance_profile_name

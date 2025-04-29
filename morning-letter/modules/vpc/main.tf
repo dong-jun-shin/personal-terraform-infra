@@ -148,7 +148,7 @@ resource "aws_security_group" "nat_instance" {
   tags = merge(
     var.tags,
     {
-      Name        = "${var.environment}-nat-instance-sg"
+      Name        = "${var.vpc_name}-nat-instance-sg"
     }
   )
 }
@@ -167,13 +167,13 @@ resource "aws_security_group" "app" {
   }
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
     security_groups = [aws_security_group.nat_instance.id]
-    description = "Allow HTTP access"
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    description     = "Allow HTTP from ALB only"
   }
-
+  
   egress {
     from_port   = 22
     to_port     = 22

@@ -25,7 +25,7 @@ resource "aws_codedeploy_deployment_group" "this" {
   }
 
   deployment_style {
-    deployment_option = "WITHOUT_TRAFFIC_CONTROL" # No ALB (IN_PLACE default)
+    deployment_option = "WITHOUT_TRAFFIC_CONTROL"
     deployment_type   = "IN_PLACE"
   }
 

@@ -58,10 +58,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "infra_files_encry
 resource "aws_s3_bucket" "tfstate" {
   bucket = var.terraform_state_bucket_name
 
-  lifecycle {
-    prevent_destroy = true
-  }
-
   tags = merge(
     {
       Name = var.terraform_state_bucket_name
@@ -69,6 +65,10 @@ resource "aws_s3_bucket" "tfstate" {
     },
     var.tags
   )
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "tfstate_public_access_block" {

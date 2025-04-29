@@ -18,11 +18,6 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "public_subnet_ids" {
-  description = "List of public subnet IDs where instances will be deployed"
-  type        = list(string)
-}
-
 variable "private_subnet_ids" {
   description = "List of private subnet IDs where instances will be deployed"
   type        = list(string)

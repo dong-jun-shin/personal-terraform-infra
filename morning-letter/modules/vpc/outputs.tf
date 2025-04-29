@@ -47,3 +47,8 @@ output "nat_instance_security_group_id" {
   description = "The ID of the NAT instance security group"
   value       = aws_security_group.nat_instance.id
 }
+
+output "alb_security_group_id" {
+  description = "The ID of the ALB security group"
+  value       = aws_security_group.alb.id
+}

@@ -1,6 +1,8 @@
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
 
+  enable_dns_support   = true
+
   tags = {
     Name = var.vpc_name
   }
@@ -117,7 +119,7 @@ resource "aws_route_table_association" "private" {
 
 # Security Group
 resource "aws_security_group" "nat_instance" {
-  name        = "${var.environment}-nat-instance-sg"
+  name        = "${var.vpc_name}-nat-instance-sg"
   description = "Security group for NAT instance"
   vpc_id      = aws_vpc.main.id
 
@@ -153,6 +155,43 @@ resource "aws_security_group" "nat_instance" {
   )
 }
 
+resource "aws_security_group" "alb" {
+  name        = "${var.vpc_name}-alb-sg"
+  description = "Security group for ALB"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow HTTP from anywhere"
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow HTTPS from anywhere"
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow all outbound traffic"
+  }
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.vpc_name}-alb-sg"
+    }
+  )
+}
+
 resource "aws_security_group" "app" {
   name        = "${var.vpc_name}-app-sg"
   description = "Security group for application servers"
@@ -167,13 +206,13 @@ resource "aws_security_group" "app" {
   }
 
   ingress {
-    security_groups = [aws_security_group.nat_instance.id]
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
+    security_groups = [aws_security_group.nat_instance.id, aws_security_group.alb.id]
     description     = "Allow HTTP from ALB only"
   }
-  
+
   egress {
     from_port   = 22
     to_port     = 22

@@ -7,7 +7,7 @@ VERSION=${VERSION:-${GITHUB_SHA:-latest}}
 ARTIFACT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/artifacts"
 ARTIFACT_NAME="${APP_NAME}-${ENVIRONMENT}-deploy-artifacts-${VERSION}.tgz"
 
-S3_BUCKET="infra-files"
+S3_BUCKET="infra-files-2025"
 S3_KEY="morning-letter-infra/deployments/${ARTIFACT_NAME}"
 AWS_REGION="ap-northeast-2"
 

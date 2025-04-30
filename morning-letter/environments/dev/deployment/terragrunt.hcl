@@ -19,7 +19,7 @@ dependency "instance" {
 }
 
 terraform {
-  source = "../../../modules/deploy"
+  source = "../../../modules/deployment"
 }
 
 inputs = {

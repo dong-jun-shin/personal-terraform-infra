@@ -7,7 +7,7 @@ include "dev" {
 }
 
 dependency "backend" {
-  config_path = "../../../bootstrap/backend"
+  config_path = "../../../../bootstrap/environments/prod/backend"
 }
 
 terraform {

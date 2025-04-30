@@ -5,5 +5,10 @@ output "infra_files_bucket_arn" {
 
 output "keypair_name" {
   description = "The name of the SSH key pair"
-  value       = aws_key_pair.morning_letter_dev_keypair.key_name
+  value       = aws_key_pair.morning_letter_keypair.key_name
+}
+
+output "user_file_path" {
+  description = "The path to the user file"
+  value       = local_file.user_local.filename
 }

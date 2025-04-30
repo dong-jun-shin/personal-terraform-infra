@@ -1,17 +1,17 @@
 # SSH Key Pair
-resource "tls_private_key" "morning_letter_dev_key" {
+resource "tls_private_key" "morning_letter_key" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
-resource "aws_key_pair" "morning_letter_dev_keypair" {
+resource "aws_key_pair" "morning_letter_keypair" {
   key_name   = var.keypair_name
-  public_key = tls_private_key.morning_letter_dev_key.public_key_openssh
+  public_key = tls_private_key.morning_letter_key.public_key_openssh
 } 
 
 resource "local_file" "user_local" {
   filename        = "${pathexpand("~")}/.ssh/${var.keypair_name}.pem"
-  content         = tls_private_key.morning_letter_dev_key.private_key_pem
+  content         = tls_private_key.morning_letter_key.private_key_pem
   file_permission = "0600"
 }
 
@@ -19,13 +19,9 @@ resource "local_file" "user_local" {
 resource "aws_s3_bucket" "infra_files" {
   bucket = var.infra_files_bucket_name
   
-  tags = merge(
-    var.tags,
-    {
-      Name        = var.infra_files_bucket_name
-      ManagedBy   = "terraform"
-    }
-  )
+  tags = {
+    Name = var.infra_files_bucket_name
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "infra_files_public_access_block" {
@@ -58,13 +54,9 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "infra_files_encry
 resource "aws_s3_bucket" "tfstate" {
   bucket = var.terraform_state_bucket_name
 
-  tags = merge(
-    {
-      Name = var.terraform_state_bucket_name
-      ManagedBy   = "terraform"
-    },
-    var.tags
-  )
+  tags = {
+    Name = var.terraform_state_bucket_name
+  }
 
   lifecycle {
     prevent_destroy = true
@@ -109,10 +101,7 @@ resource "aws_dynamodb_table" "tfstate_lock" {
     type = "S"
   }
 
-  tags = merge(
-    {
-      Name = var.terraform_state_lock_table_name
-    },
-    var.tags
-  )
+  tags = {
+    Name = var.terraform_state_lock_table_name
+  }
 } 

@@ -3,10 +3,9 @@ include "root" {
 }
 
 terraform {
-  source = "../../modules/backend"
+  source = "../../../modules/backend"
 }
 
 inputs = {
-  environment = "management"
   keypair_name  = "morning-letter-dev-keypair" # SSH Key Pair
 }

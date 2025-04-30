@@ -8,11 +8,6 @@ variable "aws_region" {
   type        = string
 }
 
-variable "environment" {
-  description = "Deployment Environment (dev, prod 등)"
-  type        = string
-}
-
 variable "infra_files_bucket_name" {
   description = "The name of the S3 bucket for infra files"
   type        = string
@@ -32,9 +27,3 @@ variable "keypair_name" {
   description = "Key pair name to use for the EC2 instance"
   type        = string
 }
-
-variable "tags" {
-  description = "A map of tags to assign to resources"
-  type        = map(string)
-  default     = {}
-} 

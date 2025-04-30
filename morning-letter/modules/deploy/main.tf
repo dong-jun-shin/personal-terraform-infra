@@ -36,6 +36,10 @@ resource "aws_codedeploy_deployment_group" "init" {
       Role = "deployment-group"
     }
   )
+
+  lifecycle {
+    ignore_changes = [autoscaling_groups]
+  }
 }
 resource "aws_codedeploy_deployment_group" "blue_green" {
   count                 = var.init_asg_app ? 0 : 1

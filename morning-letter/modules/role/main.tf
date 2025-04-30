@@ -1,3 +1,4 @@
+# Codedeploy service role
 resource "aws_iam_role" "codedeploy_service_role" {
   name = "${var.project_name}-${var.environment}-codedeploy-service-role"
 
@@ -44,6 +45,7 @@ resource "aws_iam_role_policy_attachment" "codedeploy_service_policy" {
   role       = aws_iam_role.codedeploy_service_role.name
 }
 
+# Codedeploy ec2 role
 resource "aws_iam_role" "ec2_codedeploy_role" {
   name = "${var.project_name}-${var.environment}-ec2-codedeploy-role"
 
@@ -104,4 +106,4 @@ resource "aws_iam_instance_profile" "ec2_profile" {
   tags = {
     Name = "${var.project_name}-${var.environment}-ec2-profile"
   }
-} 
+}

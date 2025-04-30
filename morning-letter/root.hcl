@@ -1,9 +1,8 @@
 locals {
   project_name                    = "morning-letter"
   aws_region                      = "ap-northeast-2"
-  infra_files_bucket_name         = "infra-files"
-  terraform_state_bucket_name     = "infra-terraform-state"
-  terraform_state_lock_table_name = "infra-terraform-state-lock"
+  terraform_state_bucket_name     = "infra-terraform-state-2025"
+  terraform_state_lock_table_name = "infra-terraform-state-lock-2025"
 }
 
 generate "provider" {
@@ -47,9 +46,6 @@ terraform {
 }
 
 inputs = {
-  project_name   = local.project_name
-  aws_region     = local.aws_region
-  infra_files_bucket_name = local.infra_files_bucket_name
-  terraform_state_bucket_name         = local.terraform_state_bucket_name
-  terraform_state_lock_table_name = local.terraform_state_lock_table_name
+  project_name                    = local.project_name
+  aws_region                      = local.aws_region
 }

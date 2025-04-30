@@ -13,6 +13,11 @@ variable "environment" {
   type        = string
 }
 
+variable "github_oidc_sub" {
+  description = "Github OIDC sub"
+  type        = string
+}
+
 variable "env_object_arn" {
   description = ".env file S3 Object ARN"
   type        = string

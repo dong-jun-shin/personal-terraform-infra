@@ -1,3 +1,47 @@
+# Github actions oidc provider for cd deploy
+data "tls_certificate" "github_oidc_thumbprint" {
+  url = "https://token.actions.githubusercontent.com/.well-known/openid-configuration"
+}
+
+resource "aws_iam_openid_connect_provider" "github_actions" {
+  url             = "https://token.actions.githubusercontent.com"
+  client_id_list  = ["sts.amazonaws.com"]
+  thumbprint_list = [data.tls_certificate.github_oidc_thumbprint.certificates[0].sha1_fingerprint]
+
+  tags = {
+    Name = "github-actions-oidc-provider"
+  }
+}
+
+resource "aws_iam_role" "github_actions_cd_deploy" {
+  name = "github-actions-cd-deploy"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Federated = aws_iam_openid_connect_provider.github_actions.arn
+        },
+        Action = "sts:AssumeRoleWithWebIdentity",
+        Condition = {
+          StringEquals = {
+            "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+          },
+          StringLike = {
+            "token.actions.githubusercontent.com:sub" = var.github_oidc_sub
+          }
+        }
+      }
+    ]
+  })
+
+  tags = {
+    Name = "github-actions-cd-deploy"
+  }
+} 
+
 # Codedeploy service role
 resource "aws_iam_role" "codedeploy_service_role" {
   name = "${var.project_name}-${var.environment}-codedeploy-service-role"

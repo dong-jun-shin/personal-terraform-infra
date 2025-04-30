@@ -1,12 +1,11 @@
 locals {
-  project_name        = "morning-letter"
-  aws_region          = "ap-northeast-2"
-  infra_files_bucket_name = "infra-morning-letter-files"
-  terraform_state_bucket_name     = "infra-morning-letter-state"
-  terraform_state_lock_table_name = "infra-morning-letter-lock"
+  project_name                    = "morning-letter"
+  aws_region                      = "ap-northeast-2"
+  infra_files_bucket_name         = "infra-files"
+  terraform_state_bucket_name     = "infra-terraform-state"
+  terraform_state_lock_table_name = "infra-terraform-state-lock"
 }
 
-# AWS 공급자 설정
 generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
@@ -25,7 +24,6 @@ provider "aws" {
 EOF
 }
 
-# 원격 상태 저장소 설정
 remote_state {
   backend = "s3"
   config = {
@@ -41,7 +39,6 @@ remote_state {
   }
 }
 
-# Terraform 버전 설정
 terraform {
   before_hook "before_hook" {
     commands = ["apply", "plan"]
@@ -49,7 +46,6 @@ terraform {
   }
 }
 
-# 입력 변수 기본값 설정
 inputs = {
   project_name   = local.project_name
   aws_region     = local.aws_region

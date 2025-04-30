@@ -8,7 +8,7 @@ HOST_ENV_FILE_PATH="/home/ec2-user/morning-letter/.env.${NODE_ENV}"
 
 DOCKER_IMAGE_URI="ghcr.io/dong-jun-shin/morning-letter-be:latest"
 GITHUB_PAT_USERNAME="dong-jun-shin"
-S3_GITHUB_PAT_URI="s3://infra-morning-letter-files/morning-letter-infra/deployments/github_token_docker_registry.env"
+S3_GITHUB_PAT_URI="s3://infra-files/morning-letter-infra/deployments/github_token_docker_registry.env"
 HOST_GITHUB_PAT_TMP_FILE="/tmp/github_token_docker_registry"
 
 echo "Set WORKER_ID from EC2 Instance ID..."

@@ -47,7 +47,7 @@ morning-letter/
 - [`environments/`](./environments/): 각 배포 환경(개발, 스테이징, 운영)에 대한 Terragrunt 구성 파일이 위치합니다. 환경별 변수와 모듈 호출을 정의합니다.
 - [`modules/`](./modules/): VPC, ALB, EC2 인스턴스, 데이터베이스 등 재사용 가능한 인프라 구성 단위를 정의하는 Terraform 모듈들이 포함되어 있습니다.
 
-## Get Started
+## Getting Started
 
 **필수 조건:**
 

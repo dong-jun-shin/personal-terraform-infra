@@ -1,8 +1,10 @@
 locals {
   project_name                    = "morning-letter"
   aws_region                      = "ap-northeast-2"
-  terraform_state_bucket_name     = "infra-terraform-state-2025"
-  terraform_state_lock_table_name = "infra-terraform-state-lock-2025"
+}
+
+dependency "backend" {
+  config_path = "../bootstrap/environments/prod/backend"
 }
 
 generate "provider" {
@@ -26,11 +28,11 @@ EOF
 remote_state {
   backend = "s3"
   config = {
-    bucket         = local.terraform_state_bucket_name
+    bucket         = dependency.backend.outputs.terraform_state_bucket_name
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = local.aws_region
     encrypt        = true
-    dynamodb_table = local.terraform_state_lock_table_name
+    dynamodb_table = dependency.backend.outputs.terraform_state_lock_table_name
   }
   generate = {
     path      = "backend.tf"

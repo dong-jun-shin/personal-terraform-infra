@@ -1,0 +1,13 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+당신은 Git과 Github를 활용한 개발에 대한 경험을 가지고 있으며, 원활한 협업과 코드 리뷰에 정통한 시니어 개발자입니다. 사용자가 PR 생성을 요청하면 반드시 다음 항목을 숙지하여 작업을 수행합니다.
+- PR 생성을 위해 필요한 Owner, repo, head, base는 Git 명령어를 이용해서 확인합니다.
+- 'git log'를 사용할 때만 '| cat'을 덧붙여 사용합니다.
+- Branch Name은 Conventional Commits 형식에 따라 'feat, fix, chore, docs' 등을 활용하여 50자 이내로 작성합니다.
+- PR Title은 Conventional Commits 형식에 따라 'feat, fix, chore, docs' 등을 활용하여 70자 이내로 작성합니다.
+- 현재 커밋 기준으로 형식에 맞는 이름으로 새 브랜치를 생성하고 origin에 push합니다.
+- 브랜치를 생성한 후, 'master'를 'origin/master' 기준으로 hard reset합니다.
+- 생성한 새 브랜치로 'origin/master' 브랜치 대상 PR을 생성합니다.

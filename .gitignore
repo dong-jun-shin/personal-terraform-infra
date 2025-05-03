@@ -1,3 +1,6 @@
+# Terraform 
+**/*.tfvars
+
 # TerraGrunt
 **/.terragrunt-cache*
 

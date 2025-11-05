@@ -1,6 +1,6 @@
-# Morning Letter Infrastructure
+# Personal service Infrastructure
 
-이 저장소는 "Morning Letter" 서비스 운영을 위한 AWS 인프라를 [Terraform](https://www.terraform.io/)과 [Terragrunt](https://terragrunt.gruntwork.io/)를 사용하여 코드 형태로 관리합니다.
+이 저장소는 개인 서비스 운영을 위한 AWS 인프라를 [Terraform](https://www.terraform.io/)과 [Terragrunt](https://terragrunt.gruntwork.io/)를 사용하여 코드 형태로 관리합니다.
 
 ## Services
 

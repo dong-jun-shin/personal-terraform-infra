@@ -2,6 +2,11 @@
 
 이 저장소는 "Morning Letter" 서비스 운영을 위한 AWS 인프라를 [Terraform](https://www.terraform.io/)과 [Terragrunt](https://terragrunt.gruntwork.io/)를 사용하여 코드 형태로 관리합니다.
 
+## Services
+
+### morning-letter
+<img src="assets/aws_architecture_diagram.svg" />
+
 ## 기술 스택
 
 - **클라우드 제공자:** [AWS (Amazon Web Services)](https://aws.amazon.com/)
